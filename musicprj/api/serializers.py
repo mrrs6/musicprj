@@ -14,7 +14,7 @@ class TrackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Track
-        fields = ('pk', 'track_id_external', 'title', 'artist','album')
+        fields = ('id', 'track_id_external', 'title', 'artist','album')
 
 class ErrorSerializer(serializers.ModelSerializer):
     class Meta:
