@@ -8,9 +8,13 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('name', 'email', 'starred_tracks')
 
 class TrackSerializer(serializers.ModelSerializer):
+    def id_(self, tr):
+          return tr.id
+    id = serializers.SerializerMethodField('id_')
+
     class Meta:
         model = Track
-        fields = ('track_id_external', 'title', 'artist','album')
+        fields = ('pk', 'track_id_external', 'title', 'artist','album')
 
 class ErrorSerializer(serializers.ModelSerializer):
     class Meta:
