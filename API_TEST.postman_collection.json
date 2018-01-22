@@ -1,0 +1,359 @@
+{
+	"info": {
+		"name": "Ubiwhere_API_TEST",
+		"_postman_id": "c56a4c92-5a0e-4296-c462-0cf08d19a444",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "server:8000/api/users/",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"DEMO\", \"email\":\"demo@mail.com\"}"
+				},
+				"url": {
+					"raw": "http://208.113.133.216:8000/api/users/",
+					"protocol": "http",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				},
+				"description": "Add a new user DEMO <demo@mail.com>"
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/users/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"DEMO\", \"email\":\"demo@mail.com\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/users/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				},
+				"description": "Get all users."
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/users/",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"demo@mail.com\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/users/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				},
+				"description": "Remove user <demo@mail.com>"
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/users/filter_by_username/jdso@hotmail.com/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"demo@mail.com\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/users/filter_by_usermail/jdso@hotmail.com/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"filter_by_usermail",
+						"jdso@hotmail.com",
+						""
+					]
+				},
+				"description": "Search for user <jdso@hotmail.com>"
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/tracks/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"demo@mail.com\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/tracks/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"tracks",
+						""
+					]
+				},
+				"description": "Get all tracks."
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/tracks/filter_by_usermail/jdso@hotmail.com/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"demo@mail.com\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/tracks/filter_by_usermail/jdso@hotmail.com/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"tracks",
+						"filter_by_usermail",
+						"jdso@hotmail.com",
+						""
+					]
+				},
+				"description": "Get all tracks for user <jdso@hotmail.com>."
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/tracks/search/mittimus/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"demo@mail.com\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/tracks/search/mittimus/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"tracks",
+						"search",
+						"mittimus",
+						""
+					]
+				},
+				"description": "Get all tracks which album, title or artist match the expression <mittimus>."
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/tracks/populate/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"demo@mail.com\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/tracks/populate/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"tracks",
+						"populate",
+						""
+					]
+				},
+				"description": "Get new tracks from the external json, but don't save them."
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/tracks/populate/save/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"demo@mail.com\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/tracks/populate/save/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"tracks",
+						"populate",
+						"save",
+						""
+					]
+				},
+				"description": "Get new tracks from the external json and import the new ones to the local DB."
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/tracks/toggle_favorite/169644/jdso@hotmail.com/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"demo@mail.com\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/tracks/toggle_favorite/169644/jdso@hotmail.com/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"tracks",
+						"toggle_favorite",
+						"169644",
+						"jdso@hotmail.com",
+						""
+					]
+				},
+				"description": "Toggle the track <id=169644> as favorite for the user <jdso@hotmail.com>"
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/tracks/",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"Track99\", \"artist\":\"Artist2000\", \"album\":\"The singles\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/tracks/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"tracks",
+						""
+					]
+				},
+				"description": "Add new track."
+			},
+			"response": []
+		},
+		{
+			"name": "server:8000/api/tracks/",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"track_id_external\":\"1234\"}"
+				},
+				"url": {
+					"raw": "208.113.133.216:8000/api/tracks/",
+					"host": [
+						"208",
+						"113",
+						"133",
+						"216"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"tracks",
+						""
+					]
+				},
+				"description": "Delete track."
+			},
+			"response": []
+		}
+	]
+}
