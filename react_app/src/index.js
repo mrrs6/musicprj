@@ -251,11 +251,11 @@ class MusicPrj extends React.Component {
 		//Append now bootstrap js, before the final render.
 		window.jQuery = window.$ = require('jquery');
 		const script1 = document.createElement("script");
-    script1.src = "http://localhost/ubi1/runtime/plugins/bootstrap/js/bootstrap.min.js";
+    script1.src = "http://208.113.133.216/helpers/plugins/bootstrap/js/bootstrap.min.js";
     script1.type = "text/javascript";
     document.body.appendChild(script1);
 		const script2 = document.createElement("script");
-    script2.src = "http://localhost/ubi1/runtime/globals.js";
+    script2.src = "http://208.113.133.216/helpers/globals.js";
     script2.type = "text/javascript";
     document.body.appendChild(script2);
 	}
