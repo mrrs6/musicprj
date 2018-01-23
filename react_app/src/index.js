@@ -11,6 +11,126 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 
 const API = 'http://208.113.133.216:8000/api/';
 
+class AddUserModal extends React.Component {
+	constructor(props) {
+    super(props);
+    this.state = {
+			name: '',
+			email:''
+		};
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+	handleChange(event) {
+		switch(event.target.id) {
+			case "input_user_name":
+				this.setState({name:event.target.value});
+				break;
+			case "input_user_email":
+				this.setState({email: event.target.value});
+				break;
+			default:
+				;
+		}
+  }
+
+	render() {
+		return (
+			<div className="modal fade" id="addUser" tabIndex="-1" role="dialog">
+				<div className="modal-dialog modal-lg" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 className="modal-title">Add user</h4>
+						</div>
+						<div className="modal-body">
+							<form>
+								<div className="form-group">
+									<label>Name</label>
+									<input type="text" className="form-control" id="input_user_name" placeholder="Name" onChange={this.handleChange} />
+								</div>
+								<div className="form-group">
+									<label>Email</label>
+									<input type="email" className="form-control" id="input_user_email" placeholder="Email" onChange={this.handleChange} />
+								</div>
+							</form>
+						</div>
+						<div className="modal-footer">
+							<button type="button" className="btn btn-default" data-dismiss="modal">Cancel</button>
+							<button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.props.instance.AddUser(this.props.instance, this.state.name,this.state.email)}>Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+}
+
+class AddTrackModal extends React.Component {
+	constructor(props) {
+    super(props);
+    this.state = {
+			title: '',
+			artist: '',
+			album:''
+		};
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+	handleChange(event) {
+		switch(event.target.id) {
+			case "input_track_title":
+				this.setState({title:event.target.value});
+				break;
+			case "input_track_artist":
+				this.setState({artist: event.target.value});
+				break;
+			case "input_track_album":
+				this.setState({album: event.target.value});
+				break;
+			default:
+				;
+		}
+  }
+
+	render() {
+		return (
+			<div className="modal fade" id="addTrack" tabIndex="-1" role="dialog">
+				<div className="modal-dialog modal-lg" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 className="modal-title">Add user</h4>
+						</div>
+						<div className="modal-body">
+							<form>
+								<div className="form-group">
+									<label>Title</label>
+									<input type="text" className="form-control" id="input_track_title" placeholder="Title" onChange={this.handleChange} />
+								</div>
+								<div className="form-group">
+									<label>Artist</label>
+									<input type="text" className="form-control" id="input_track_artist" placeholder="Artist" onChange={this.handleChange} />
+								</div>
+								<div className="form-group">
+									<label>Album</label>
+									<input type="text" className="form-control" id="input_track_album" placeholder="Album" onChange={this.handleChange} />
+								</div>
+							</form>
+						</div>
+						<div className="modal-footer">
+							<button type="button" className="btn btn-default" data-dismiss="modal">Cancel</button>
+							<button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.props.instance.AddTrack(this.props.instance, this.state.title,this.state.artist, this.state.album)}>Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+}
+
 class Modal extends React.Component {
 	render() {
 		return (
@@ -22,11 +142,11 @@ class Modal extends React.Component {
 							<h4 className="modal-title">{this.props.title}</h4>
 						</div>
 						<div className="modal-body">
-							<h1>CONTENT HERE</h1>
+							CONTENT HERE!
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-default" data-dismiss="modal">Cancel</button>
-							<button type="button" className="btn btn-primary">Save</button>
+							<button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.submitfcn()}>Save</button>
 						</div>
 					</div>
 				</div>
@@ -136,13 +256,45 @@ class MusicPrj extends React.Component {
     document.body.appendChild(script1);
 	}
 
-	componentDidMount() {
+	LoadUsers() {
 		fetch(API + 'users/')
 			.then(response=>response.json())
 			.then(data => this.setState({users: data}));
+	}
+
+	LoadTracks() {
 		fetch(API + 'tracks/')
 			.then(response=>response.json())
 			.then(data => this.setState({tracks: data}));
+	}
+
+	componentDidMount() {
+		this.LoadUsers();
+		this.LoadTracks();
+	}
+
+	AddUser(t, name, email) {
+		fetch(API+'users/', { method: 'PUT', body: JSON.stringify({"name":name,"email":email}) })
+			.then(response => response.json())
+			.then(data => function(t1, data1){
+				if(typeof(data1.type)!=="undefined") {
+					alert(data1.message);
+				} else {
+					t1.LoadUsers();
+				}
+			}(t, data))
+	}
+
+	AddTrack(t, title, artist, album) {
+		fetch(API+'tracks/', { method: 'PUT', body: JSON.stringify({"title":title,"artist":artist,"album":album}) })
+			.then(response => response.json())
+			.then(data => function(t1, data1){
+				if(typeof(data1.type)!=="undefined") {
+					alert(data1.message);
+				} else {
+					t1.LoadTracks();
+				}
+			}(t, data))
 	}
 
 	DeleteUser(email) {
@@ -178,9 +330,9 @@ class MusicPrj extends React.Component {
 
 				</div>
 
-				<Modal id="addUser" title="Add user" />
-				<Modal id="addTrack" title="Add Track" />
-				<Modal id="seeFavourite" title="Favourites" />
+				<AddUserModal instance={this} />
+				<AddTrackModal instance={this} />
+				<Modal id="seeFavourite" title="Favorites" />
 			</div>
 		)
 	}
