@@ -1,0 +1,53 @@
+html,
+body {
+    background-color: #f2f2f2;
+    padding-top: 25px;
+}
+
+a,
+button {
+    outline: none !important;
+}
+
+.nav > li {
+    display: inline-block;
+}
+
+.nav-pills > li {
+    float: none;
+}
+
+.addButton {
+    margin-bottom: 15px;
+}
+
+.btn-yellow {
+    color: #fff;
+    background-color: #FFBA00;
+    border-color: #FFBA00;
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_both,
+table.dataTable thead .sorting_desc {
+  background : none;
+}
+
+table.table-bordered.dataTable tbody th,
+table.table-bordered.dataTable tbody td {
+  vertical-align: middle;
+}
+
+table.table-bordered.dataTable thead {
+  background-color: #555;
+  color: #fff;
+}
+
+table.table-bordered.dataTable thead tr th {
+  border-bottom: 2px solid #555;
+}
+
+.paginate_button a {
+  outline: none;
+}
