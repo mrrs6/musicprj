@@ -110,8 +110,8 @@ def tracks_view_general(request):
         try:
             data = json.loads(request.body.decode("utf-8"))
             try:
-                track=User.objects.filter(track_id_external=data.get("track_id_external"))
-                if track==None or len(user)==0:
+                track=Track.objects.filter(track_id_external=data.get("track_id_external"))
+                if track==None or len(track)==0:
                     raise Exception()
                 track.delete()
             except Exception:
