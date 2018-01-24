@@ -131,22 +131,21 @@ class AddTrackModal extends React.Component {
 	}
 }
 
-class Modal extends React.Component {
+class FavsModal extends React.Component {
 	render() {
 		return (
-			<div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog">
+			<div className="modal fade" id="seeFavourite" tabIndex="-1" role="dialog">
 				<div className="modal-dialog modal-lg" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
 							<button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 className="modal-title">{this.props.title}</h4>
+							<h4 className="modal-title">User favourite tracks</h4>
 						</div>
 						<div className="modal-body">
-							CONTENT HERE!
+{renderFavsTable(this.props.tabledata, this.props.instance)}
 						</div>
 						<div className="modal-footer">
-							<button type="button" className="btn btn-default" data-dismiss="modal">Cancel</button>
-							<button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.submitfcn()}>Save</button>
+							<button type="button" className="btn btn-default" data-dismiss="modal">&nbsp;Ok&nbsp;</button>
 						</div>
 					</div>
 				</div>
@@ -189,7 +188,7 @@ function renderUsersTable(tabledata, t) {
 							<tr>
 								<td>{row.name}</td>
 								<td>{row.email}</td>
-								<td><button className='btn btn-info' data-toggle='modal' data-target='#seeFavourite' title='Favorites'><i className='fa fa-star'></i></button>&nbsp;<button className='btn btn-danger' title='Delete' onClick={() => t.DeleteUser(row.email)}><i className='fa fa-trash'></i></button></td>
+								<td><button className='btn btn-yellow' data-toggle='modal' data-target='#seeFavourite' title='Favorites' onClick={() => t.setState({selected_user_mail:row.email, starred_tracks:row.starred_tracks})}><i className='fa fa-star'></i></button>&nbsp;<button className='btn btn-danger' title='Delete' onClick={() => t.DeleteUser(row.email)}><i className='fa fa-trash'></i></button></td>
 							</tr>
 					)
 				}
@@ -216,6 +215,33 @@ function renderTracksTable(tabledata, t) {
 	)
 }
 
+function renderFavsTable(tabledata, t) {
+	return (
+		<table className="table table-hover text-center">
+			<thead>
+				<th className="text-center">Title</th><th className="text-center">Artist</th><th className="text-center">Album</th><th></th>
+			</thead>
+			<tbody>
+				{
+					tabledata.map(
+						row => function(row, t) { 
+							var b = (<button className='btn btn-default' title='Star' onClick={() => t.SelectedUser_ToggleFavorite(row.track_id_external)}><i className='fa fa-star'></i></button>);
+							for(var i=0; i<t.state.starred_tracks.length; i++) {
+								if(row.id===t.state.starred_tracks[i]) {
+									b = (<button className='btn btn-yellow' title='Star' onClick={() => t.SelectedUser_ToggleFavorite(row.track_id_external)}><i className='fa fa-star'></i></button>);
+
+								}
+							}
+							return (
+								<tr><td> {row.title}</td><td>{row.artist}</td><td>{row.album}</td><td> {b} </td></tr>
+							)
+						}(row,t)
+					)
+				}
+			</tbody>
+		</table>
+	)
+}
 
 class TabPane extends React.Component {
 	render() {
@@ -244,6 +270,9 @@ class MusicPrj extends React.Component {
  		this.state = {
   		users: [],
   		tracks: [],
+
+  		starred_tracks: [],
+  		selected_user_mail: "",
 		};
 	}
 
@@ -258,6 +287,18 @@ class MusicPrj extends React.Component {
     script2.src = "http://208.113.133.216/helpers/globals.js";
     script2.type = "text/javascript";
     document.body.appendChild(script2);
+	}
+
+	SelectedUser_ToggleFavorite(tr_id_ext) {
+		fetch(API+'tracks/toggle_favorite/'+ tr_id_ext + "/" + this.state.selected_user_mail + "/")
+			.then(response => response.json())
+			.then(data => function(t1, data1){
+				if(typeof(data1.type)!=="undefined") {
+					alert(data1.message);
+				} else {
+					t1.setState({starred_tracks: data1[0].starred_tracks});
+				}
+			}(this, data))
 	}
 
 	LoadUsers() {
@@ -336,7 +377,7 @@ class MusicPrj extends React.Component {
 
 				<AddUserModal instance={this} />
 				<AddTrackModal instance={this} />
-				<Modal id="seeFavourite" title="Favorites" />
+				<FavsModal instance={this} tabledata={this.state.tracks} />
 			</div>
 		)
 	}
